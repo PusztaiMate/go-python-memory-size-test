@@ -1,0 +1,12 @@
+FROM python:3.12.0a1-alpine
+
+RUN apk add --no-cache poetry
+
+WORKDIR /app
+
+COPY ./main.py .
+COPY pyproject.toml .
+
+RUN poetry install
+
+CMD [ "gunicorn", "main:app", "--bind", "5123"]
